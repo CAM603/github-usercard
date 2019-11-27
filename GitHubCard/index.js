@@ -6,6 +6,7 @@
 axios.get('https://api.github.com/users/CAM603')
 .then(function(response) {
   console.log(response);
+  cardCreator(response);
 })
 .catch(function (error) {
   console.log(error);
@@ -35,6 +36,89 @@ axios.get('https://api.github.com/users/CAM603')
 */
 
 const followersArray = [];
+
+function cardCreator(obj) {
+
+  // Create main div
+  let cardDiv = document.createElement('div');
+  
+  // Add class to cardDiv
+  cardDiv.classList.add('card');
+
+  // Create image
+  let image = document.createElement('img');
+
+  // Add source to image
+  //image.setAttribute('src', obj.data.avatar-url);
+
+  // Add image to div
+  cardDiv.appendChild(image);
+
+  // Create inner div
+  let innerDiv = document.createElement('div');
+
+  // Add class
+  innerDiv.classList.add('card-info');
+
+  // Add inner div to outer div
+  cardDiv.appendChild(innerDiv);
+
+  // Create h3
+  let header = document.createElement('h3');
+
+  // Give h3 class
+  header.classList.add('name');
+
+  // Add text content to div via axios
+  header.textContent = obj.data.name;
+
+  // Add header to inner div
+  innerDiv.appendChild(header);
+
+  // Create paragraph for username
+  let username = document.createElement('p');
+
+  // Add class to username paragraph
+  username.classList.add('username');
+
+  // Add text content to paragraph via axios
+  username.textContent = obj.data.login;
+
+  // Add username to inner div
+  innerDiv.appendChild(username);
+
+  // Create location paragraph
+  let location = document.createElement('p');
+
+  // Add location text from axios
+  location.textContent = obj.data.location;
+
+  // Add location to inner div
+  innerDiv.appendChild(location);
+
+  // Create profile paragraph
+  let profile = document.createElement('p');
+
+  // Add text content to profile
+  profile.textContent = 'Profile:'
+
+  // Add profile to inner div
+  innerDiv.appendChild(profile);
+
+  // Create link to profile
+  let link = document.createElement('a');
+
+  // Add link source
+  link.setAttribute('href', obj.data.html_url)
+
+  // Add link text content
+  link.textContent = obj.data.html_url;
+
+  // Add link to profile paragraph
+  profile.appendChild(link);
+
+  console.log(cardDiv)
+}
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
