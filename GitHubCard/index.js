@@ -35,7 +35,23 @@ axios.get('https://api.github.com/users/CAM603')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd',
+  'bigknell', 'vinnihoke'];
+
+  followersArray.forEach(el => {
+
+    axios.get('https://api.github.com/users/' + el)
+    .then(function(response) {
+    console.log(response);
+    cardCreator(response);
+  })
+    .catch(function (error) {
+    console.log(error);
+  })
+    .finally(function () {
+
+  });
+  })
 
 function cardCreator(obj) {
 
