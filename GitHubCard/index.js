@@ -49,7 +49,7 @@ function cardCreator(obj) {
   let image = document.createElement('img');
 
   // Add source to image
-  //image.setAttribute('src', obj.data.avatar-url);
+  image.setAttribute('src', obj.data.avatar_url);
 
   // Add image to div
   cardDiv.appendChild(image);
@@ -117,8 +117,39 @@ function cardCreator(obj) {
   // Add link to profile paragraph
   profile.appendChild(link);
 
-  console.log(cardDiv)
+  // Add followers paragraph
+  let followers = document.createElement('p');
+
+  // Add text content to followers 
+  followers.textContent = 'Followers: ' + obj.data.followers;
+
+  // Add followers paragraph to inner div
+  innerDiv.appendChild(followers);
+
+  // Add following paragraph
+  let following = document.createElement('p');
+
+  // Add text to following
+  following.textContent = 'Following: ' + obj.data.following;
+
+  // Add following to inner div
+  innerDiv.appendChild(following);
+
+  // Add bio paragraph
+  let bio = document.createElement('p');
+
+  // Add bio text content
+  bio.textContent = 'Bio: ' + obj.data.bio;
+
+  // Add bio to inner div
+  innerDiv.appendChild(bio);
+
+  // Add card to document
+  let cards = document.querySelector('.cards');
+  
+  return cards.appendChild(cardDiv);;
 }
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -147,3 +178,4 @@ function cardCreator(obj) {
   luishrd
   bigknell
 */
+
