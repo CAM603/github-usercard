@@ -116,7 +116,7 @@ function cardCreator(obj) {
   let profile = document.createElement('p');
 
   // Add text content to profile
-  profile.textContent = 'Profile:'
+  profile.textContent = 'Profile: '
 
   // Add profile to inner div
   innerDiv.appendChild(profile);
