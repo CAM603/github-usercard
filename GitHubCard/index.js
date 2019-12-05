@@ -11,8 +11,16 @@ axios.get('https://api.github.com/users/CAM603')
 .then( response => {
   axios.get(response.data.followers_url)
   .then(response => {
-    let cards = document.querySelector('.cards');
-    response.data.forEach(el => cards.appendChild(cardMaker2(el)))
+    response.data.forEach(el => {
+      axios.get(el.url)
+      .then(response => {
+        let cards = document.querySelector('.cards');
+        cards.appendChild(cardMaker(response));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    })
     
   })
   .catch( err => {
