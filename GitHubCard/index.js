@@ -2,9 +2,11 @@
           (replacing the palceholder with your Github name):
           https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/CAM603')
+axios.get('https://api.github.com/users')
 .then( response => {
-  cardMaker(response);
+  let cards = document.querySelector('.cards');
+  response.data.forEach(el => console.log(el))
+  
 })
 .catch( err => {
   console.log(err);
@@ -17,7 +19,7 @@ axios.get('https://api.github.com/users/CAM603')
 */
 
 /* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
+          create a new component and add it to the DOM as a child of .cards
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
@@ -30,7 +32,7 @@ axios.get('https://api.github.com/users/CAM603')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 function cardMaker(obj) {
   // Create elements
@@ -76,7 +78,7 @@ function cardMaker(obj) {
   following.textContent = 'Followers: ' + obj.data.following;
   bio.textContent = 'Bio: ' + obj.data.bio;
 
-  console.log(card);
+  return card;
 }
 
 
