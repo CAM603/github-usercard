@@ -63,53 +63,6 @@ axios.get('https://api.github.com/users/CAM603')
 //     console.log(err);
 //   })
 // })
-
-function cardMaker2(obj) {
-  // Create elements
-  let card = document.createElement('div');
-  let image = document.createElement('img');
-  let info = document.createElement('div');
-  let name = document.createElement('h3');
-  let username = document.createElement('p');
-  let location = document.createElement('p');
-  let profile = document.createElement('p');
-  let link = document.createElement('a');
-  let followers = document.createElement('p');
-  let following = document.createElement('p');
-  let bio = document.createElement('p');
-
-  // Attach elements to main div
-  card.appendChild(image);
-  card.appendChild(info);
-  info.appendChild(name);
-  info.appendChild(username);
-  info.appendChild(location);
-  info.appendChild(profile);
-  profile.appendChild(link);
-  info.appendChild(followers);
-  info.appendChild(following);
-  info.appendChild(bio);
-
-  // Add classes as needed
-  card.classList.add('card');
-  info.classList.add('card-info');
-  name.classList.add('name');
-  username.classList.add('username');
-
-  // Add text content and image source
-  image.src = obj.avatar_url;
-  name.textContent = obj.name;
-  username.textContent = obj.login;
-  location.textContent = 'Location: ' + obj.location;
-  profile.textContent = 'Profile: ';
-  link.textContent = obj.html_url;
-  link.href = obj.html_url;
-  followers.textContent = 'Following: ' + obj.followers;
-  following.textContent = 'Followers: ' + obj.following;
-  bio.textContent = 'Bio: ' + obj.bio;
-
-  return card;
-}
 function cardMaker(obj) {
   // Create elements
   let card = document.createElement('div');
@@ -123,6 +76,8 @@ function cardMaker(obj) {
   let followers = document.createElement('p');
   let following = document.createElement('p');
   let bio = document.createElement('p');
+  // Creating hidden div
+  let graph = document.createElement('div');
 
   // Attach elements to main div
   card.appendChild(image);
@@ -135,12 +90,16 @@ function cardMaker(obj) {
   info.appendChild(followers);
   info.appendChild(following);
   info.appendChild(bio);
+  // Hidden div
+  card.appendChild(graph);
 
   // Add classes as needed
   card.classList.add('card');
   info.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
+  // Hidden div
+  graph.classList.add('calendar');
 
   // Add text content and image source
   image.src = obj.data.avatar_url;
@@ -153,6 +112,7 @@ function cardMaker(obj) {
   followers.textContent = 'Following: ' + obj.data.followers;
   following.textContent = 'Followers: ' + obj.data.following;
   bio.textContent = 'Bio: ' + obj.data.bio;
+
 
   return card;
 }
