@@ -2,11 +2,10 @@
           (replacing the palceholder with your Github name):
           https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users')
+axios.get('https://api.github.com/users/CAM603')
 .then( response => {
   let cards = document.querySelector('.cards');
-  response.data.forEach(el => console.log(el))
-  
+  cards.appendChild(cardMaker(response));
 })
 .catch( err => {
   console.log(err);
@@ -32,7 +31,18 @@ axios.get('https://api.github.com/users')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell', 'vinnihoke'];
+
+followersArray.forEach(el => {
+  axios.get('https://api.github.com/users/' + el)
+  .then( response => {
+    let cards = document.querySelector('.cards');
+    cards.appendChild(cardMaker(response));
+  })
+  .catch( err => {
+    console.log(err);
+  })
+})
 
 function cardMaker(obj) {
   // Create elements
