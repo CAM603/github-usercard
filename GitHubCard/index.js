@@ -6,6 +6,18 @@ axios.get('https://api.github.com/users/CAM603')
 .then( response => {
   let cards = document.querySelector('.cards');
   cards.appendChild(cardMaker(response));
+  return response;
+})
+.then( response => {
+  axios.get(response.data.followers_url)
+  .then(response => {
+    let cards = document.querySelector('.cards');
+    response.data.forEach(el => cards.appendChild(cardMaker2(el)))
+    
+  })
+  .catch( err => {
+    console.log(err);
+  })
 })
 .catch( err => {
   console.log(err);
@@ -31,19 +43,65 @@ axios.get('https://api.github.com/users/CAM603')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell', 'vinnihoke'];
+// const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell', 'vinnihoke'];
 
-followersArray.forEach(el => {
-  axios.get('https://api.github.com/users/' + el)
-  .then( response => {
-    let cards = document.querySelector('.cards');
-    cards.appendChild(cardMaker(response));
-  })
-  .catch( err => {
-    console.log(err);
-  })
-})
+// followersArray.forEach(el => {
+//   axios.get('https://api.github.com/users/' + el)
+//   .then( response => {
+//     let cards = document.querySelector('.cards');
+//     cards.appendChild(cardMaker(response));
+//   })
+//   .catch( err => {
+//     console.log(err);
+//   })
+// })
 
+function cardMaker2(obj) {
+  // Create elements
+  let card = document.createElement('div');
+  let image = document.createElement('img');
+  let info = document.createElement('div');
+  let name = document.createElement('h3');
+  let username = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let link = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+
+  // Attach elements to main div
+  card.appendChild(image);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(username);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(link);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  // Add classes as needed
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  // Add text content and image source
+  image.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = 'Location: ' + obj.location;
+  profile.textContent = 'Profile: ';
+  link.textContent = obj.html_url;
+  link.href = obj.html_url;
+  followers.textContent = 'Following: ' + obj.followers;
+  following.textContent = 'Followers: ' + obj.following;
+  bio.textContent = 'Bio: ' + obj.bio;
+
+  return card;
+}
 function cardMaker(obj) {
   // Create elements
   let card = document.createElement('div');
