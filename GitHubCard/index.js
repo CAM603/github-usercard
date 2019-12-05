@@ -2,6 +2,7 @@
           (replacing the palceholder with your Github name):
           https://api.github.com/users/<your name>
 */
+
 axios.get('https://api.github.com/users/CAM603')
 .then( response => {
   let cards = document.querySelector('.cards');
@@ -10,6 +11,7 @@ axios.get('https://api.github.com/users/CAM603')
 .catch( err => {
   console.log(err);
 })
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
   github info! You will need to understand the structure of this 
   data in order to use it to build your component function 
@@ -30,6 +32,7 @@ axios.get('https://api.github.com/users/CAM603')
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+
 
 const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell', 'vinnihoke'];
 
@@ -89,6 +92,7 @@ function cardMaker(obj) {
   bio.textContent = 'Bio: ' + obj.data.bio;
 
   return card;
+
 }
 
 
@@ -119,3 +123,4 @@ function cardMaker(obj) {
   luishrd
   bigknell
 */
+
