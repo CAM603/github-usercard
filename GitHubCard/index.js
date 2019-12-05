@@ -4,16 +4,14 @@
 */
 
 axios.get('https://api.github.com/users/CAM603')
-.then(function(response) {
-  console.log(response);
-  cardCreator(response);
+.then( response => {
+  let cards = document.querySelector('.cards');
+  cards.appendChild(cardMaker(response));
 })
-.catch(function (error) {
-  console.log(error);
+.catch( err => {
+  console.log(err);
 })
-.finally(function () {
 
-});
 /* Step 2: Inspect and study the data coming back, this is YOUR 
   github info! You will need to understand the structure of this 
   data in order to use it to build your component function 
@@ -35,135 +33,66 @@ axios.get('https://api.github.com/users/CAM603')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd',
-  'bigknell', 'vinnihoke'];
 
-  followersArray.forEach(el => {
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell', 'vinnihoke'];
 
-    axios.get('https://api.github.com/users/' + el)
-    .then(function(response) {
-    console.log(response);
-    cardCreator(response);
+followersArray.forEach(el => {
+  axios.get('https://api.github.com/users/' + el)
+  .then( response => {
+    let cards = document.querySelector('.cards');
+    cards.appendChild(cardMaker(response));
   })
-    .catch(function (error) {
-    console.log(error);
+  .catch( err => {
+    console.log(err);
   })
-    .finally(function () {
+})
 
-  });
-  })
-
-function cardCreator(obj) {
-
-  // Create main div
-  let cardDiv = document.createElement('div');
-  
-  // Add class to cardDiv
-  cardDiv.classList.add('card');
-
-  // Create image
+function cardMaker(obj) {
+  // Create elements
+  let card = document.createElement('div');
   let image = document.createElement('img');
-
-  // Add source to image
-  image.setAttribute('src', obj.data.avatar_url);
-
-  // Add image to div
-  cardDiv.appendChild(image);
-
-  // Create inner div
-  let innerDiv = document.createElement('div');
-
-  // Add class
-  innerDiv.classList.add('card-info');
-
-  // Add inner div to outer div
-  cardDiv.appendChild(innerDiv);
-
-  // Create h3
-  let header = document.createElement('h3');
-
-  // Give h3 class
-  header.classList.add('name');
-
-  // Add text content to div via axios
-  header.textContent = obj.data.name;
-
-  // Add header to inner div
-  innerDiv.appendChild(header);
-
-  // Create paragraph for username
+  let info = document.createElement('div');
+  let name = document.createElement('h3');
   let username = document.createElement('p');
-
-  // Add class to username paragraph
-  username.classList.add('username');
-
-  // Add text content to paragraph via axios
-  username.textContent = obj.data.login;
-
-  // Add username to inner div
-  innerDiv.appendChild(username);
-
-  // Create location paragraph
   let location = document.createElement('p');
-
-  // Add location text from axios
-  location.textContent = obj.data.location;
-
-  // Add location to inner div
-  innerDiv.appendChild(location);
-
-  // Create profile paragraph
   let profile = document.createElement('p');
-
-  // Add text content to profile
-  profile.textContent = 'Profile: '
-
-  // Add profile to inner div
-  innerDiv.appendChild(profile);
-
-  // Create link to profile
   let link = document.createElement('a');
-
-  // Add link source
-  link.setAttribute('href', obj.data.html_url)
-
-  // Add link text content
-  link.textContent = obj.data.html_url;
-
-  // Add link to profile paragraph
-  profile.appendChild(link);
-
-  // Add followers paragraph
   let followers = document.createElement('p');
-
-  // Add text content to followers 
-  followers.textContent = 'Followers: ' + obj.data.followers;
-
-  // Add followers paragraph to inner div
-  innerDiv.appendChild(followers);
-
-  // Add following paragraph
   let following = document.createElement('p');
-
-  // Add text to following
-  following.textContent = 'Following: ' + obj.data.following;
-
-  // Add following to inner div
-  innerDiv.appendChild(following);
-
-  // Add bio paragraph
   let bio = document.createElement('p');
 
-  // Add bio text content
+  // Attach elements to main div
+  card.appendChild(image);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(username);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(link);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  // Add classes as needed
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  // Add text content and image source
+  image.src = obj.data.avatar_url;
+  name.textContent = obj.data.name;
+  username.textContent = obj.data.login;
+  location.textContent = 'Location: ' + obj.data.location;
+  profile.textContent = 'Profile: ';
+  link.textContent = obj.data.html_url;
+  link.href = obj.data.html_url;
+  followers.textContent = 'Following: ' + obj.data.followers;
+  following.textContent = 'Followers: ' + obj.data.following;
   bio.textContent = 'Bio: ' + obj.data.bio;
 
-  // Add bio to inner div
-  innerDiv.appendChild(bio);
+  return card;
 
-  // Add card to document
-  let cards = document.querySelector('.cards');
-  
-  return cards.appendChild(cardDiv);;
 }
 
 
