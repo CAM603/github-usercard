@@ -4,7 +4,7 @@
 */
 axios.get('https://api.github.com/users/CAM603')
 .then( response => {
-  console.log(response)
+  cardMaker(response);
 })
 .catch( err => {
   console.log(err);
@@ -58,9 +58,27 @@ function cardMaker(obj) {
   info.appendChild(following);
   info.appendChild(bio);
 
+  // Add classes as needed
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  // Add text content and image source
+  image.src = obj.data.avatar_url;
+  name.textContent = obj.data.name;
+  username.textContent = obj.data.login;
+  location.textContent = 'Location: ' + obj.data.location;
+  profile.textContent = 'Profile: ';
+  link.textContent = obj.data.html_url;
+  link.href = obj.data.html_url;
+  followers.textContent = 'Following: ' + obj.data.followers;
+  following.textContent = 'Followers: ' + obj.data.following;
+  bio.textContent = 'Bio: ' + obj.data.bio;
+
   console.log(card);
 }
-cardMaker();
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
