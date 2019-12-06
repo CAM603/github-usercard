@@ -76,8 +76,7 @@ function cardMaker(obj) {
   let followers = document.createElement('p');
   let following = document.createElement('p');
   let bio = document.createElement('p');
-  // Creating hidden div
-  let graph = document.createElement('div');
+  let button = document.createElement('button');
 
   // Attach elements to main div
   card.appendChild(image);
@@ -90,17 +89,15 @@ function cardMaker(obj) {
   info.appendChild(followers);
   info.appendChild(following);
   info.appendChild(bio);
-  // Hidden div
-  card.appendChild(graph);
-
+  info.appendChild(button);
+  
   // Add classes as needed
   card.classList.add('card');
   info.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
-  // Hidden div
-  graph.classList.add('calendar');
-
+  button.classList.add('button');
+  
   // Add text content and image source
   image.src = obj.data.avatar_url;
   name.textContent = obj.data.name;
@@ -112,11 +109,23 @@ function cardMaker(obj) {
   followers.textContent = 'Following: ' + obj.data.followers;
   following.textContent = 'Followers: ' + obj.data.following;
   bio.textContent = 'Bio: ' + obj.data.bio;
+  button.textContent = 'See Contributions';
 
+  button.addEventListener('click', () => {
+    graph.classList.toggle('calendar-show');
+  })
 
+  // Creating hidden div
+  let graph = document.createElement('div');
+  // Hidden div
+  graph.classList.add('calendar');
+  // Hidden div
+  let cards = document.querySelector('.cards');
+  card.appendChild(graph);
+  new GitHubCalendar(graph, obj.data.login, { responsive: true });
+  
   return card;
 }
-
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:

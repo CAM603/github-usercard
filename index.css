@@ -123,3 +123,13 @@ body {
   margin: 3px 0 10px;
 }
 
+.calendar {
+  display: none;
+}
+.calendar-show {
+  display: inline-block;
+  position: relative;
+}
+.button {
+  justify-self: flex-start;
+}
