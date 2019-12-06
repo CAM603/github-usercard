@@ -113,6 +113,7 @@ function cardMaker(obj) {
 
   button.addEventListener('click', () => {
     graph.classList.toggle('calendar-show');
+    card.classList.toggle('card-open');
   })
 
   // Creating hidden div
@@ -120,7 +121,6 @@ function cardMaker(obj) {
   // Hidden div
   graph.classList.add('calendar');
   // Hidden div
-  let cards = document.querySelector('.cards');
   card.appendChild(graph);
   new GitHubCalendar(graph, obj.data.login, { responsive: true });
   
